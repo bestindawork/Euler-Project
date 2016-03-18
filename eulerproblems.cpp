@@ -8,9 +8,11 @@ void projecteuler1();
 void projecteuler2();
 void projecteuler3();
 void projecteuler4();
+void projecteuler5();
+void projecteuler6();
 
 int main() {
-	projecteuler4();
+	projecteuler6();
 	return 0;
 }
 
@@ -84,4 +86,77 @@ void projecteuler3() {
 		largestprime = tempnum;
 	}
 	cout << "The largest prime factor of 600,851,475,143 is " << largestprime << endl;
+}
+/*
+projecteuler.net Problem 4 
+A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+
+Find the largest palindrome made from the product of two 3-digit numbers.
+*/
+void projecteuler4() {
+	int num, first, second, backup;
+	int inv = 0;
+	int palindromei = 0;
+	for (first = 999; first > 100; first--) {
+		for (second = 999; second > 100; second--) {
+			num = first * second;
+			backup = num;
+			do {
+				int digit;
+				digit = num % 10;
+				inv = (inv * 10) + digit;
+				num = num / 10;
+			} while (num != 0);
+			
+			if (backup == inv) {
+				if (backup > palindromei) {
+					palindromei = backup;
+				}
+			}
+			inv = 0;
+		}
+	}
+	cout << "The largest palindrome from two 3 digit integers is: " << palindromei << endl;
+}
+/*
+projecteuler.net	Problem 5
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+*/
+void projecteuler5() {
+	bool small = true;
+	int number = 0;
+	while (small==true)
+	{
+		number++;
+		for (int i = 1; i <= 20; i++) {
+			if (number%i == 0) {
+				if (i == 20) {
+					small = false;
+				}
+			}
+			else {
+				i = 21;
+			}
+		}
+	}
+	cout << "The smallest number that can be divided by the numbers 1-20 is: " << number << endl;
+}
+/*
+projecteuler.net Problem 6
+Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+*/
+void projecteuler6() {
+	int sumofsquare = 0;
+	int square;
+	int squareofsum = 0;
+	for (int i = 1; i <= 100; i++) {
+		square = i*i;
+		sumofsquare += square;
+		squareofsum += i;
+	}
+	squareofsum = squareofsum*squareofsum;
+	square = squareofsum - sumofsquare;
+	cout << "The difference between the sum of the squares and the square of the sum is: " << square << endl;
 }
